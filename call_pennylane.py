@@ -11,7 +11,7 @@ from scipy.stats import norm
 
 m = 5
 M = 2 ** m
-n = 10
+n = 5
 N = 2 ** n
 
 xmax = np.pi  # bound to region [-pi, pi]
@@ -57,7 +57,7 @@ def qMC(S0):
     simVal = np.exp(-r*T)*(1 - np.cos(np.pi * phase_estimated)) / 2 * scale_factor
     return simVal 
 
-S0_exact = range(70,130)
+S0_exact = range(70,131)
 final_payoff = [max(x-K,0) for x in S0_exact]
 val_exact = [BSexact(x) for x in S0_exact]
 
@@ -68,7 +68,14 @@ val_qmc = [qMC(x) for x in S0_qmc]
 
 
 plt.figure()
-plt.plot(S0_exact,val_exact,"b-")
-plt.plot(S0_exact,final_payoff,"r-")
-plt.plot(S0_qmc,val_qmc,"ro")
+plt.plot(S0_exact,final_payoff,"r-", label="payoff")
+plt.plot(S0_exact,val_exact,"b-", label="Black Scholes")
+plt.plot(S0_qmc,val_qmc,"go", label="QMC")
+plt.legend(fontsize=10)
+plt.xlabel("Stock Price")
+plt.ylabel("Option Price")
+outStr1 = "K={0}, r={1}%, vol={2}%, T={3}".format(K,r*100,vol*100,T)
+outStr2 = "# of Qubit: {0}".format(n+m+1)
+plt.annotate(outStr1, xy=(70,20))
+plt.annotate(outStr2, xy=(70,17))
 plt.show()

@@ -26,9 +26,9 @@ A = np.array(
 
 b = np.array([1.0, 0.0, 0.0, 0.0])
 
-target_x = np.linalg.inv(A) @ b  # true solution
+target_x = np.linalg.inv(A) @ b  # true solution  
 
-kappa = 4 # 의미가 무엇일까?
+kappa = 4 # 의미가 무엇일까?  
 s = 0.10145775
 phi_pyqsp = [-2.287, 2.776, -1.163, 0.408, -0.16, -0.387, 0.385, -0.726, 0.456, 0.062, -0.468, 0.393, 0.028, -0.567, 0.76, -0.432, -0.011, 0.323, -0.573, 0.82, -1.096, 1.407, -1.735, 2.046, -2.321, 2.569, -2.819, -0.011, 2.71, -2.382, 2.574, 0.028, -2.749, 2.673, 0.062, -2.685, 2.416, 0.385, -0.387, -0.16, 0.408, -1.163, -0.365, 2.426]
 phi_qsvt = qml.transform_angles(phi_pyqsp, "QSP", "QSVT")  # convert pyqsp angles to be compatible with QSVT

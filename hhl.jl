@@ -141,5 +141,5 @@ dx = 1/(1<<N + 1)
 xvec = 0.0:dx:1.0
 q_sol, c_sol, _ = main(N)
 # println(q_sol, c_sol)
-Plots.plot(xvec,[1;c_sol;0],label="exact sol.")
+Plots.plot(xvec,[1;c_sol;0],label="exact sol.",lw=3)
 Plots.scatter!(xvec,[1;q_sol;0],label="HHL sol")

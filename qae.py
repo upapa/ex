@@ -42,20 +42,20 @@ problem = EstimationProblem(
     objective_qubits=[0],  # the "good" state Psi1 is identified as measuring |1> in qubit 0
 )
 
-# from qiskit.primitives import Sampler
-# sampler = Sampler()
-from qiskit.primitives import StatevectorSampler
-sampler = StatevectorSampler()
+from qiskit.primitives import Sampler
+sampler = Sampler()
+# from qiskit.primitives import StatevectorSampler
+# sampler = StatevectorSampler()
 
 # #### 1 
-# from qiskit_algorithms import AmplitudeEstimation
-# ae = AmplitudeEstimation(
-#     num_eval_qubits=3,  # the number of evaluation qubits specifies circuit width and accuracy
-#     sampler=sampler,
-# )
-# ae_result = ae.estimate(problem)
-# print(ae_result.estimation)
-# print("Interpolated MLE estimator:", ae_result.mle)
+from qiskit_algorithms import AmplitudeEstimation
+ae = AmplitudeEstimation(
+    num_eval_qubits=3,  # the number of evaluation qubits specifies circuit width and accuracy
+    sampler=sampler,
+)
+ae_result = ae.estimate(problem)
+print(ae_result.estimation)
+print("Interpolated MLE estimator:", ae_result.mle)
 
 
 # import matplotlib.pyplot as plt

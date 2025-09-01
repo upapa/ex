@@ -96,51 +96,51 @@ exact_delta = sum(uncertainty_model.probabilities[x >= strike_price])
 print("exact expected value:\t%.4f" % exact_value)
 print("exact delta value:   \t%.4f" % exact_delta)
 
-# # set target precision and confidence level
-# epsilon = 0.01
-# alpha = 0.05
-
-# problem = EstimationProblem(
-#     state_preparation=european_call,
-#     objective_qubits=[3],
-#     post_processing=european_call_objective.post_processing,
-# )
-# # construct amplitude estimation
-# ae = IterativeAmplitudeEstimation(
-#     epsilon_target=epsilon, alpha=alpha, sampler=Sampler(run_options={"shots": 100, "seed": 75})
-# )
-
-# result = ae.estimate(problem)
-# conf_int = np.array(result.confidence_interval_processed)
-# print("Exact value:        \t%.4f" % exact_value)
-# print("Estimated value:    \t%.4f" % (result.estimation_processed))
-# print("Confidence interval:\t[%.4f, %.4f]" % tuple(conf_int))
-
-
-
-# qiskit finance module
-from qiskit_finance.applications.estimation import EuropeanCallPricing
-
-european_call_pricing = EuropeanCallPricing(
-    num_state_qubits=num_uncertainty_qubits,
-    strike_price=strike_price,
-    rescaling_factor=c_approx,
-    bounds=(low, high),
-    uncertainty_model=uncertainty_model,
-)
-
 # set target precision and confidence level
 epsilon = 0.01
 alpha = 0.05
 
-problem = european_call_pricing.to_estimation_problem()
+problem = EstimationProblem(
+    state_preparation=european_call,
+    objective_qubits=[3],
+    post_processing=european_call_objective.post_processing,
+)
 # construct amplitude estimation
 ae = IterativeAmplitudeEstimation(
     epsilon_target=epsilon, alpha=alpha, sampler=Sampler(run_options={"shots": 100, "seed": 75})
 )
-result = ae.estimate(problem)
 
+result = ae.estimate(problem)
 conf_int = np.array(result.confidence_interval_processed)
 print("Exact value:        \t%.4f" % exact_value)
-print("Estimated value:    \t%.4f" % (european_call_pricing.interpret(result)))
+print("Estimated value:    \t%.4f" % (result.estimation_processed))
 print("Confidence interval:\t[%.4f, %.4f]" % tuple(conf_int))
+
+
+
+# # qiskit finance module
+# from qiskit_finance.applications.estimation import EuropeanCallPricing
+
+# european_call_pricing = EuropeanCallPricing(
+#     num_state_qubits=num_uncertainty_qubits,
+#     strike_price=strike_price,
+#     rescaling_factor=c_approx,
+#     bounds=(low, high),
+#     uncertainty_model=uncertainty_model,
+# )
+
+# # set target precision and confidence level
+# epsilon = 0.01
+# alpha = 0.05
+
+# problem = european_call_pricing.to_estimation_problem()
+# # construct amplitude estimation
+# ae = IterativeAmplitudeEstimation(
+#     epsilon_target=epsilon, alpha=alpha, sampler=Sampler(run_options={"shots": 100, "seed": 75})
+# )
+# result = ae.estimate(problem)
+
+# conf_int = np.array(result.confidence_interval_processed)
+# print("Exact value:        \t%.4f" % exact_value)
+# print("Estimated value:    \t%.4f" % (european_call_pricing.interpret(result)))
+# print("Confidence interval:\t[%.4f, %.4f]" % tuple(conf_int))

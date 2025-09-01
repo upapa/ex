@@ -47,15 +47,16 @@ problem = EstimationProblem(
 from qiskit.primitives import StatevectorSampler
 sampler = StatevectorSampler()
 
-from qiskit_algorithms import AmplitudeEstimation
+# #### 1 
+# from qiskit_algorithms import AmplitudeEstimation
+# ae = AmplitudeEstimation(
+#     num_eval_qubits=3,  # the number of evaluation qubits specifies circuit width and accuracy
+#     sampler=sampler,
+# )
+# ae_result = ae.estimate(problem)
+# print(ae_result.estimation)
+# print("Interpolated MLE estimator:", ae_result.mle)
 
-ae = AmplitudeEstimation(
-    num_eval_qubits=3,  # the number of evaluation qubits specifies circuit width and accuracy
-    sampler=sampler,
-)
-
-ae_result = ae.estimate(problem)
-print(ae_result.estimation)
 
 # import matplotlib.pyplot as plt
 
@@ -74,7 +75,7 @@ print(ae_result.estimation)
 # plt.grid()
 # plt.show()
 
-print("Interpolated MLE estimator:", ae_result.mle)
+
 # ae_circuit = ae.construct_circuit(problem)
 # ae_circuit.decompose().draw(
 #     "mpl", style="clifford"

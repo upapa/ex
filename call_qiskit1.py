@@ -1,3 +1,5 @@
+# ref: https://qiskit-community.github.io/qiskit-finance/tutorials/03_european_call_option_pricing.html
+
 import matplotlib.pyplot as plt
 import numpy as np
 

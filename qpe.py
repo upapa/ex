@@ -37,22 +37,21 @@ for counting_qubit in range(num_qubit):
 qpe.barrier()
 # Apply inverse QFT
 # qpe = qpe.compose(QFT(3, inverse=True), [0,1,2])
-# qpe.inverse_qft(3,approximation_degree=0, do_swaps=False)
-qpe = qpe.compose(QFT(num_qubits=num_qubit, approximation_degree=0, do_swaps=False, 
-           inverse=True, insert_barriers=True, name='iqft'))
+qpe = qpe.compose(QFT(num_qubits=num_qubit, approximation_degree=0, do_swaps=True, 
+           inverse=True, insert_barriers=True))
 # Measure
 qpe.barrier()
 for n in range(num_qubit):
     qpe.measure(n,n)
 
-# print(qpe.draw())
+print(qpe.draw())
 
 # back end: version1.3
 from qiskit_aer import AerSimulator 
 
 aer_sim = AerSimulator()
 shots = 4096
-results = aer_sim.run(qpe, shots=shots).result()
+results = aer_sim.run(qpe.decompose(reps=10), shots=shots).result()
 answer = results.get_counts()
 print(answer)
 plot_histogram(answer)

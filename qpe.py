@@ -1,7 +1,7 @@
 # quantum phase estimation 
 # ref: https://github.com/Qiskit/textbook/blob/main/notebooks/ch-algorithms/quantum-phase-estimation.ipynb
 # 
-# fourier 역변환을 아직 제대로 하지 못했다. 
+
 
 
 #initialization
@@ -14,10 +14,10 @@ import math
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 
 # import basic plot tools and circuits
-from qiskit.visualization import plot_histogram
+from qiskit.visualization import plot_histogram, plot_distribution
 from qiskit.circuit.library import QFT
 
-num_qubit = 5 
+num_qubit = 5
 qpe = QuantumCircuit(num_qubit+1, num_qubit)
 qpe.x(num_qubit)
 # print(qpe.draw())
@@ -26,6 +26,7 @@ for qubit in range(num_qubit):
     qpe.h(qubit)
 # print(qpe.draw())
 
+# PhaseGate. ph = 1/3이 되어야 한다.
 angle = 2*math.pi/3
 repetitions = 1
 for counting_qubit in range(num_qubit):
@@ -54,4 +55,5 @@ shots = 4096
 results = aer_sim.run(qpe.decompose(reps=10), shots=shots).result()
 answer = results.get_counts()
 print(answer)
-plot_histogram(answer)
+# plot_histogram(answer).show()
+plot_distribution(answer).show()

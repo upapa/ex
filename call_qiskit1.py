@@ -105,17 +105,24 @@ problem = EstimationProblem(
     objective_qubits=[3],
     post_processing=european_call_objective.post_processing,
 )
-# construct amplitude estimation
-ae = IterativeAmplitudeEstimation(
-    epsilon_target=epsilon, alpha=alpha, sampler=Sampler(run_options={"shots": 100, "seed": 75})
+# # construct amplitude estimation
+# ae = IterativeAmplitudeEstimation(
+#     epsilon_target=epsilon, alpha=alpha, sampler=Sampler(run_options={"shots": 100, "seed": 75})
+# )
+# result = ae.estimate(problem)
+# conf_int = np.array(result.confidence_interval_processed)
+# print("Exact value:        \t%.4f" % exact_value)
+# print("Estimated value:    \t%.4f" % (result.estimation_processed))
+# print("Confidence interval:\t[%.4f, %.4f]" % tuple(conf_int))
+
+from qiskit_algorithms import FasterAmplitudeEstimation
+ae = FasterAmplitudeEstimation(
+    delta=0.01,  # target accuracy
+    maxiter=3,  # determines the maximal power of the Grover operator
+    sampler=Sampler()
 )
-
 result = ae.estimate(problem)
-conf_int = np.array(result.confidence_interval_processed)
-print("Exact value:        \t%.4f" % exact_value)
-print("Estimated value:    \t%.4f" % (result.estimation_processed))
-print("Confidence interval:\t[%.4f, %.4f]" % tuple(conf_int))
-
+print(result)
 
 
 # # qiskit finance module

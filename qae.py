@@ -42,8 +42,9 @@ problem = EstimationProblem(
     objective_qubits=[0],  # the "good" state Psi1 is identified as measuring |1> in qubit 0
 )
 
-from qiskit.primitives import Sampler
+from qiskit.primitives import Sampler, StatevectorSampler
 sampler = Sampler()
+# sampler = StatevectorSampler()
 # from qiskit.primitives import StatevectorSampler
 # sampler = StatevectorSampler()
 

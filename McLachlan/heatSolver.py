@@ -191,6 +191,7 @@ traj = []
 for t in ts:
     psi_norm = state_from_betas(betas)
     psi_hat  = alpha * psi_norm  
+    traj.append(np.real(psi_hat[:K]))
     betas, alpha = step(betas, alpha, dt)
 
 traj = np.stack(traj, axis=0)  # shape: (Nt, 4)

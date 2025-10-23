@@ -225,3 +225,19 @@ u_exact = np.stack([np.sin(2*np.pi*xs/Lx) * np.exp(lmbda[0]*t) for t in ts], axi
 
 space_rms = np.sqrt(np.mean((u_vqs - u_exact)**2))
 print("RMS (physical space u(x,t)) vs exact:", float(space_rms))
+
+
+import matplotlib.pyplot as plt
+
+
+# ------------------------ Plot: solution snapshots ---------------------
+plt.figure(figsize=(10,6))
+for idx in [0, min(20,len(ts)-1), min(40,len(ts)-1), len(ts)-1]:
+    plt.plot(xs, u_vqs[idx], label=f"VQS t={ts[idx]:.2f}")
+    plt.plot(xs, u_exact[idx], "--", label=f"Exact t={ts[idx]:.2f}")
+plt.xlabel("x")
+plt.ylabel("u(x,t)")
+plt.legend()
+plt.title("Reconstructed solution snapshots")
+plt.grid(True)
+plt.show()

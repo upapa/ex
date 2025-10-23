@@ -95,3 +95,20 @@ print("RMS error vs exact:", float(rms))
 
 for k in [0, 20, 40, 80, len(ts)-1]:
     print(f"t={ts[k]:.2f}  VQS = {traj[k].real}  exact = {exact[k]}")
+
+import matplotlib.pyplot as plt
+
+labels = [f"$u_{k}(t)$" for k in range(dim)]
+
+plt.figure(figsize=(10, 6))
+for i in range(dim):
+    plt.plot(ts, exact[:, i], 'k--', linewidth=1.5, label=f"Exact {labels[i]}")
+    plt.plot(ts, traj[:, i].real, label=f"VQS {labels[i]}", alpha=0.8)
+
+plt.title("VQS vs Exact: Time Evolution of State Components")
+plt.xlabel("Time $t$")
+plt.ylabel("Component Value")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()

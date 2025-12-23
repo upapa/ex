@@ -6,12 +6,20 @@ r = 0.0; K = 100.0; vol = 0.2; T = 1.0
 
 import pennylane as qml
 import numpy as np
+# %%
+# %matplotlib inline
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
-m = 5
+hasGPU = True
+if hasGPU:
+    m = n = 11
+    dev = qml.device("lightning.gpu", wires=(n + m + 1))
+else: 
+    m = n = 10
+    dev = qml.device("default.qubit", wires=(n + m + 1))
+
 M = 2 ** m
-n = 5
 N = 2 ** n
 
 xmax = np.pi  # bound to region [-pi, pi]
@@ -39,7 +47,7 @@ def BSexact(S0):
 target_wires = range(m + 1)
 estimation_wires = range(m + 1, n + m + 1)
 
-dev = qml.device("default.qubit", wires=(n + m + 1))
+# dev = qml.device("default.qubit", wires=(n + m + 1))
 
 @qml.qnode(dev)
 def circuit(func):

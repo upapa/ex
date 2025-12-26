@@ -15,6 +15,8 @@ hasGPU = True
 if hasGPU:
     m = n = 11
     dev = qml.device("lightning.gpu", wires=(n + m + 1))
+    # import cudaq 
+    # dev = qml.device("cudaq.qpu", wires=(n + m + 1))
 else: 
     m = n = 10
     dev = qml.device("default.qubit", wires=(n + m + 1))
